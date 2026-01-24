@@ -1,10 +1,16 @@
 import { useState } from "react";
 import ReclaManager from "../components/admin/ReclaManager";
+import ReservationManager from "../components/admin/ReservationManager";
+
+// Dans les onglets :
+// {tab === "reservations" && <ReservationManager />}
+// { id: "reservations", label: "Réservations" },
 
 const TABS = [
   { id: "carte", label: "Carte / Menu" },
   { id: "galerie", label: "Galerie photos" },
   { id: "recla", label: "Réclamations" },
+  { id: "reservations", label: "Réservations" },
 ];
 
 export default function Admin() {
@@ -65,6 +71,7 @@ export default function Admin() {
         {tab === "carte" && <p>Gestion de la carte (à venir)</p>}
         {tab === "galerie" && <p>Gestion de la galerie (à venir)</p>}
         {tab === "recla" && <ReclaManager />}
+        {tab === "reservations" && <ReservationManager />}
       </main>
     </div>
   );

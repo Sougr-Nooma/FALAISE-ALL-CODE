@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ReclamationController;
+use App\Http\Controllers\Api\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,9 @@ Route::middleware(['api'])->group(function () {
     
     // Réclamations
     Route::apiResource('reclamations', ReclamationController::class);
+
+    // Réservation
+    Route::apiResource('reservations', ReservationController::class);
     
     // Route de test (pour vérifier que l'API fonctionne)
     Route::get('/test', function () {

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 
-export default function Reservation() {
+export default function ReservationForm() {
   const [form, setForm] = useState({
     nom: "",
     telephone: "",
@@ -10,202 +11,82 @@ export default function Reservation() {
     personnes: 10,
     remarques: "",
   });
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [errors, setErrors] = useState({});
-  const [sent, setSent]     = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
-    if (errors[name]) setErrors((err) => ({ ...err, [name]: "" }));
-  };
-
-  const validate = () => {
-    const err = {};
-    if (!form.nom.trim()) err.nom = "Nom requis";
-    if (!form.telephone.trim()) err.telephone = "Téléphone requis";
-    if (!form.email.trim()) err.email = "Email requis";
-    if (!form.date) err.date = "Date requise";
-    if (!form.heure) err.heure = "Heure requise";
-    if (Number(form.personnes) < 10)
-      err.personnes = "Minimum 10 personnes";
-    return err;
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const err = validate();
-    if (Object.keys(err).length) {
-      setErrors(err);
+    
+    if (form.personnes < 10) {
+      alert("Minimum 10 personnes requis");
       return;
     }
-    console.log("Réservation :", form);
-    setSent(true);
+
+    setLoading(true);
+    try {
+      await axios.post("http://localhost:8000/api/reservations", form);
+      setSent(true);
+    } catch (err) {
+      alert("Erreur lors de l'envoi");
+      console.error(err);
+
+      
+    }
+    setLoading(false);
   };
 
-  if (sent)
-    return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <div className="bg-white rounded-2xl shadow p-8 max-w-lg text-center">
-          <h2 className="text-2xl font-bold text-primary mb-2">
-            Demande envoyée !
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Nous vous confirmerons votre réservation par téléphone ou email
-            dans les plus brefs délais.
-          </p>
-          <button
-            onClick={() => setSent(false)}
-            className="bg-primary text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition"
-          >
-            Nouvelle réservation
-          </button>
-        </div>
+  if (sent) return (
+    <div className="py-24 bg-gray-50 text-center">
+      <div className="bg-green-50 text-green-800 rounded-lg p-8 max-w-lg mx-auto">
+        <h3 className="text-2xl font-bold mb-2">Réservation envoyée !</h3>
+        <p>Nous vous confirmerons par téléphone dans les plus brefs délais.</p>
       </div>
-    );
+    </div>
+  );
 
   return (
-    <section className="min-h-screen bg-gray-50 py-32 px-6">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow p-8">
-        <h1 className="text-4xl font-bold text-secondary mb-8 text-center">
-          Réserver votre table
-        </h1>
-
-        <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
-          {/* Nom */}
+    <section id="reservation" className="py-24 bg-gray-50">
+      <div className="max-w-3xl mx-auto px-6">
+        <h2 className="text-4xl font-bold text-secondary text-center mb-8">Réserver une table</h2>
+        
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow p-8 grid md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium mb-1">Nom *</label>
-            <input
-              name="nom"
-              value={form.nom}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.nom ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.nom && (
-              <p className="text-red-500 text-xs mt-1">{errors.nom}</p>
-            )}
+            <input required value={form.nom} onChange={(e) => setForm({...form, nom: e.target.value})} className="w-full px-4 py-2 border rounded-lg" />
           </div>
-
-          {/* Téléphone */}
           <div>
             <label className="block text-sm font-medium mb-1">Téléphone *</label>
-            <input
-              name="telephone"
-              type="tel"
-              value={form.telephone}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.telephone ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.telephone && (
-              <p className="text-red-500 text-xs mt-1">{errors.telephone}</p>
-            )}
+            <input required value={form.telephone} onChange={(e) => setForm({...form, telephone: e.target.value})} className="w-full px-4 py-2 border rounded-lg" />
           </div>
-
-          {/* Email */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Email *</label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-            )}
+            <label className="block text-sm font-medium mb-1">Email (optionnel)</label>
+            <input type="email" value={form.email} onChange={(e) => setForm({...form, email: e.target.value})} className="w-full px-4 py-2 border rounded-lg" />
           </div>
-
-          {/* Date */}
           <div>
             <label className="block text-sm font-medium mb-1">Date *</label>
-            <input
-              name="date"
-              type="date"
-              value={form.date}
-              onChange={handleChange}
-              min={new Date().toISOString().split("T")[0]}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.date ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.date && (
-              <p className="text-red-500 text-xs mt-1">{errors.date}</p>
-            )}
+            <input type="date" required min={new Date().toISOString().split('T')[0]} value={form.date} onChange={(e) => setForm({...form, date: e.target.value})} className="w-full px-4 py-2 border rounded-lg" />
           </div>
-
-          {/* Heure */}
           <div>
             <label className="block text-sm font-medium mb-1">Heure *</label>
-            <select
-              name="heure"
-              value={form.heure}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.heure ? "border-red-500" : "border-gray-300"
-              }`}
-            >
-              <option value="">-- Choisir --</option>
-              {[...Array(17)].map((_, i) => {
-                const h = 7 + i;
-                return (
-                  <option key={h} value={`${h}:00`}>
-                    {h}:00
-                  </option>
-                );
-              })}
+            <select required value={form.heure} onChange={(e) => setForm({...form, heure: e.target.value})} className="w-full px-4 py-2 border rounded-lg">
+              <option value="">Choisir</option>
+              {['11:00','12:00','13:00','14:00','19:00','20:00','21:00','22:00'].map(h => (
+                <option key={h} value={h}>{h}</option>
+              ))}
             </select>
-            {errors.heure && (
-              <p className="text-red-500 text-xs mt-1">{errors.heure}</p>
-            )}
           </div>
-
-          {/* Nombre de personnes */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">
-              Nombre de personnes *
-            </label>
-            <input
-              name="personnes"
-              type="number"
-              min="10"
-              value={form.personnes}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${
-                errors.personnes ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {errors.personnes && (
-              <p className="text-red-500 text-xs mt-1">{errors.personnes}</p>
-            )}
-            <p className="text-xs text-gray-500 mt-1">Minimum 10 personnes</p>
+            <label className="block text-sm font-medium mb-1">Nombre de personnes * (min. 10)</label>
+            <input type="number" required min="10" value={form.personnes} onChange={(e) => setForm({...form, personnes: parseInt(e.target.value)})} className="w-full px-4 py-2 border rounded-lg" />
+            {form.personnes < 10 && <p className="text-red-500 text-sm mt-1">Minimum 10 personnes</p>}
           </div>
-
-          {/* Remarques */}
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Remarques</label>
-            <textarea
-              name="remarques"
-              value={form.remarques}
-              onChange={handleChange}
-              rows={4}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            />
+            <label className="block text-sm font-medium mb-1">Remarques (optionnel)</label>
+            <textarea rows={3} value={form.remarques} onChange={(e) => setForm({...form, remarques: e.target.value})} className="w-full px-4 py-2 border rounded-lg" placeholder="Allergies, occasion spéciale..." />
           </div>
-
-          {/* Bouton */}
           <div className="md:col-span-2">
-            <button
-              type="submit"
-              className="w-full bg-primary text-white py-3 rounded-lg shadow hover:bg-orange-600 transition"
-            >
-              Envoyer la demande
+            <button type="submit" disabled={loading} className="w-full bg-primary text-white py-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">
+              {loading ? "Envoi..." : "Demander une réservation"}
             </button>
           </div>
         </form>
