@@ -1,0 +1,32 @@
+Authentification sécurisée (Sanctum pour protéger l'admin)
+Déploiement (passage à MySQL, mise en ligne)
+
+
+src/
+├── components/
+│   ├── Navbar.jsx, Footer.jsx, Hero.jsx
+│   ├── ReclamationSection.jsx, ReservationForm.jsx
+│   ├── BlogSection.jsx, Specialites.jsx, Carousel.jsx
+│   └── admin/
+│       ├── ReclaManager.jsx
+│       ├── ReservationManager.jsx
+│       └── GalleryManager.jsx
+├── pages/
+│   ├── Home.jsx, Menu.jsx, Galerie.jsx, Admin.jsx
+├── context/ (vide pour l'instant)
+└── hooks/ (vide pour l'instant)
+
+Tables: reclamations, reservations, gallery_items
+Controllers: ReclamationController, ReservationController, GalleryController
+Config: cors.php configuré
+
+| Module            | État | Fichiers clés                                                   |
+| ----------------- | ---- | --------------------------------------------------------------- |
+| **Site vitrine**  | ✅    | `Home.jsx`, `Hero.jsx`, `Navbar.jsx`, `Footer.jsx`              |
+| **Menu (swiper)** | ✅    | `Menu.jsx` (données en dur)                                     |
+| **Réservation**   | ✅    | `ReservationForm.jsx` → API Laravel + email + tableau admin     |
+| **Réclamation**   | ✅    | `ReclamationSection.jsx` → API + photo + email + tableau admin  |
+| **Galerie**       | ✅    | `Galerie.jsx` + `GalleryManager.jsx` (admin) + `PhotoModal.jsx` |
+| **Admin**         | ✅    | `Admin.jsx` avec onglets                                        |
+
+

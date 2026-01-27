@@ -1,16 +1,21 @@
 import { useState } from "react";
 import ReclaManager from "../components/admin/ReclaManager";
 import ReservationManager from "../components/admin/ReservationManager";
+import GalleryManager from "../components/admin/GalleryManager";
+import DishManager from "../components/admin/DishManager";
 
-// Dans les onglets :
-// {tab === "reservations" && <ReservationManager />}
-// { id: "reservations", label: "Réservations" },
+// Dans TABS:
+
+// Dans le rendu:
 
 const TABS = [
   { id: "carte", label: "Carte / Menu" },
-  { id: "galerie", label: "Galerie photos" },
+  { id: "galerie", label: "Galerie photos & vidéos" },
   { id: "recla", label: "Réclamations" },
   { id: "reservations", label: "Réservations" },
+  // { id: "carte", label: "Carte / Menu" }
+  // { id: "galerie", label: "Galerie photos & vidéos" },
+
 ];
 
 export default function Admin() {
@@ -69,9 +74,11 @@ export default function Admin() {
 
       <main className="flex-1 p-8">
         {tab === "carte" && <p>Gestion de la carte (à venir)</p>}
-        {tab === "galerie" && <p>Gestion de la galerie (à venir)</p>}
+        {/* {tab === "galerie" && <p>Gestion de la galerie (à venir)</p>} */}
         {tab === "recla" && <ReclaManager />}
         {tab === "reservations" && <ReservationManager />}
+        {tab === "galerie" && <GalleryManager />}
+        {tab === "carte" && <DishManager />}
       </main>
     </div>
   );

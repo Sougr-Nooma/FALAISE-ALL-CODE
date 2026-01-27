@@ -18,11 +18,11 @@ export default function BlogSection() {
 
   return (
     <section id="blog" className="py-24 bg-gray-50">
-      <div className="max-w-5xl mx-auto px-6 text-center">
+      <div className="max-w-7xl mx-auto px-6 text-center">
         <h2 className="text-4xl font-bold text-secondary mb-12">Blog & Moments</h2>
 
         {/* Carrousel */}
-        <div className="relative">
+        <div className="relative w-full max-w-6xl mx-auto">
           <div className="overflow-hidden rounded-2xl shadow-xl">
             <img
               src={blogSlides[idx].url}
