@@ -82,7 +82,7 @@ export default function AddProductModal({ onClose }) {
 
           {/* Prix */}
           <div>
-            <label className="block text-sm font-medium mb-1">Prix (MAD) *</label>
+            <label className="block text-sm font-medium mb-1">Prix (DT) *</label>
             <input
               name="prix"
               type="number"

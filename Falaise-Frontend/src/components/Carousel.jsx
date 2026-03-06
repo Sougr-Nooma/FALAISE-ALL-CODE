@@ -15,13 +15,13 @@ export default function Carousel({ slides }) {
   const prev = () => setIdx((i) => (i - 1 + slides.length) % slides.length);
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto select-none">
+    <div className="relative w-full max-w-6xl mx-auto select-none">
       {/* IMAGE */}
       <div className="overflow-hidden rounded-2xl shadow-xl">
         <img
           src={slides[idx].img}
           alt={slides[idx].title}
-          className="w-full h-80 object-cover"
+          className="w-full h-[500px] object-cover"
         />
       </div>
 

@@ -85,7 +85,7 @@ export default function ReservationForm() {
             <textarea rows={3} value={form.remarques} onChange={(e) => setForm({...form, remarques: e.target.value})} className="w-full px-4 py-2 border rounded-lg" placeholder="Allergies, occasion spéciale..." />
           </div>
           <div className="md:col-span-2">
-            <button type="submit" disabled={loading} className="w-full bg-primary text-white py-3 rounded-lg hover:bg-orange-600 disabled:opacity-50">
+            <button type="submit" disabled={loading} className="w-full bg-primary text-[#2F2F2F] py-3 rounded-lg hover:bg-[#e6dbc4] disabled:opacity-50">
               {loading ? "Envoi..." : "Demander une réservation"}
             </button>
           </div>

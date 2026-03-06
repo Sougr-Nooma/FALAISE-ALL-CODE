@@ -4,9 +4,11 @@ export default {
   theme: {
     extend:{
       colors:{
-        primary:'#f97316',   // orange-500
+        primary:'#E6C78F',   // orange-500
+        // primary:'#f97316',   // orange-500
         secondary:'#1f2937', // gray-800
         accent:'#fed7aa',    // orange-200
+        hm:'#F5F1E8',    // Vert clair (pistache)
       }
     }
   },

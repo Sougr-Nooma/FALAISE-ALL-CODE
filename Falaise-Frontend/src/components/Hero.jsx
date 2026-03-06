@@ -28,13 +28,13 @@ export default function Hero() {
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
 
-            <Link to="/menu" className="px-8 py-3 rounded-lg bg-primary hover:bg-orange-600 transition shadow-lg">
+            <Link to="/menu" className="px-8 py-3 rounded-lg bg-primary text-[#2F2F2F] hover:bg-[#e6dbc4] transition shadow-lg">
                 Voir le Menu Complet
             </Link>
 
             <button
             onClick={() => scroll("#reservation")}
-            className="px-8 py-3 rounded-lg border-2 border-white hover:bg-white hover:text-secondary transition"
+            className="px-8 py-3 rounded-lg border-2 border-white hover:bg-[#e6dbc4] hover:text-secondary transition"
           >
             Réserver maintenant
           </button>

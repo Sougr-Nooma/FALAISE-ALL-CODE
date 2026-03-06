@@ -64,7 +64,7 @@ export default function CarteManager() {
             <input name="nom" value={form.nom} onChange={(e) => setForm({...form, nom: e.target.value})} required placeholder="Espresso" className="w-full px-4 py-2 border rounded-lg" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Prix * (MAD)</label>
+            <label className="block text-sm font-medium mb-1">Prix * (DT)</label>
             <input name="prix" type="number" value={form.prix} onChange={(e) => setForm({...form, prix: e.target.value})} required placeholder="25" className="w-full px-4 py-2 border rounded-lg" />
           </div>
           <div className="md:col-span-2">

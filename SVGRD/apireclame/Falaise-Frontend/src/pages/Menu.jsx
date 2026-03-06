@@ -37,7 +37,7 @@ export default function Menu() {
                   {liste.map((p) => (
                     <div key={p.id} className="flex justify-between items-center bg-white/70 rounded-lg p-4">
                       <span className="font-medium">{p.nom}</span>
-                      <span className="text-primary font-bold">{p.prix} MAD</span>
+                      <span className="text-primary font-bold">{p.prix} DT</span>
                     </div>
                   ))}
                 </div>

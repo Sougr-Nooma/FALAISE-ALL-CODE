@@ -27,7 +27,7 @@ export default function BlogSection() {
             <img
               src={blogSlides[idx].url}
               alt={blogSlides[idx].legende}
-              className="w-full h-96 object-cover"
+              className="w-full h-[500px] object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 text-white">
               <h3 className="text-2xl font-bold">{blogSlides[idx].legende}</h3>
@@ -65,7 +65,7 @@ export default function BlogSection() {
         {/* Bouton vers page galerie */}
         <button
           onClick={() => nav("/galerie")}
-          className="mt-10 inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg shadow hover:bg-orange-600 transition"
+          className="mt-10 inline-flex items-center gap-2 bg-primary text-[#2F2F2F] px-6 py-3 rounded-lg shadow hover:bg-[#e6dbc4] transition"
         >
           Accéder à notre galerie
           <svg

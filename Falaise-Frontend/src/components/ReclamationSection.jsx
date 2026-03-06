@@ -168,7 +168,7 @@ export default function ReclamationSection() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary text-white py-3 rounded-lg hover:bg-orange-600 disabled:opacity-50 transition"
+              className="w-full bg-primary text-[#2F2F2F] py-3 rounded-lg hover:bg-[#e6dbc4] disabled:opacity-50 transition"
             >
               {loading ? "Envoi en cours..." : "Envoyer la réclamation"}
             </button>
